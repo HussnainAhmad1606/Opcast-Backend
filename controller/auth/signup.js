@@ -29,7 +29,7 @@ const signup = asyncWrapper(async (req, res) => {
       .json({ type: "success", message: "Account created successfully" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ type: "error", msg: "Internal server error" });
+    res.status(500).json({ type: "error", message: "Internal server error" });
   }
 });
 module.exports = signup;

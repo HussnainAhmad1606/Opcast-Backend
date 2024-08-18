@@ -6,9 +6,10 @@ const app = express();
 const errorHandler = require('./middleware/error-handler');
 const notFound = require('./middleware/not-found');
 const authRoutes = require('./routes/auth');
+const setupWebSocketServer = require('./webSocketServer');
 require('dotenv').config();
 
-
+setupWebSocketServer(app);
 const corsOptions = {
     origin: '*',
     credentials: true,            //access-control-allow-credentials:true
