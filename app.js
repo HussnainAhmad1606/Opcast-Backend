@@ -6,13 +6,14 @@ const app = express();
 const errorHandler = require('./middleware/error-handler');
 const notFound = require('./middleware/not-found');
 const authRoutes = require('./routes/auth');
+const seriesRoutes = require('./routes/series');
 const setupWebSocketServer = require('./webSocketServer');
 require('dotenv').config();
 
 setupWebSocketServer(app);
 const corsOptions = {
     origin: '*',
-    credentials: true,            //access-control-allow-credentials:true
+    credentials: true,  
     optionSuccessStatus: 200,
 }
 
@@ -28,6 +29,9 @@ app.use(express.json());
 
 //Routes without token
 app.use(authRoutes);
+
+
+app.use(seriesRoutes);
 
 //Routes with authentication token
 

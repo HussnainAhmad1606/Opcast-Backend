@@ -4,15 +4,16 @@ const CustomErrorApi = require('../errors/custom-error')
 const authentication = async (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ msg: 'Invalid Bearer' })
+        return res.status(401).json({ type: "error", message: 'Invalid Bearer' })
     }
     const token = authHeader.split(' ')[1];
     try {
-        const decoded = jwt.decode(token, process.env.JWT_SECRET_KEY);
-        const { id, username } = decoded
-        req.user = { id, username }
+        const decoded = jwt.decode(token, process.env.JWT_TOKEN);
+        const { userId, username } = decoded
+        console.log(decoded)
+        req.user = {  userId, username }
     } catch (err) {
-        return res.status(401).json({ msg: "Not authorized to access this route" })
+        return res.status(401).json({ type: "error", message:"Not authorized to access this route" })
     }
     next();
 }

@@ -13,14 +13,14 @@ const login = asyncWrapper(async (req, res) => {
         if (user && (await bcrypt.compare(rPassword, user.password))) {
      
 
-            const token = signToken({ username: user.username }, process.env.JWT_TOKEN, '5h');
-            const refreshToken = signToken({ username: user.username }, process.env.JWT_REFRESH_TOKEN, '7d');
+            const token = signToken({ username: user.username, userId: user._id }, process.env.JWT_TOKEN, '5h');
+            const refreshToken = signToken({ username: user.username, userId: user._id  }, process.env.JWT_REFRESH_TOKEN, '7d');
           
             res.status(200).json({ type: "success", message: "Logged in Sucess", token: token, refreshToken: refreshToken, userId: user._id });
 
         }
         else {
-            return res.status(400).json({message: "Invalid Credientails", type: "error"})
+            return res.status(400).json({message: "Invalid Credientials", type: "error"})
         }
 
     }
