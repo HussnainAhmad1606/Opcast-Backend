@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error-handler');
 const notFound = require('./middleware/not-found');
 const authRoutes = require('./routes/auth');
 const seriesRoutes = require('./routes/series');
+const podcastRoutes = require('./routes/podcast');
 const setupWebSocketServer = require('./webSocketServer');
 require('dotenv').config();
 
@@ -32,6 +33,8 @@ app.use(authRoutes);
 
 
 app.use(seriesRoutes);
+
+app.use(podcastRoutes);
 
 //Routes with authentication token
 
