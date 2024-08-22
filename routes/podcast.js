@@ -3,11 +3,15 @@ const router = express.Router();
 const createNewPodcast = require('../controller/podcasts/new-podcast');
 const getSeriesPodcasts = require('../controller/podcasts/get-series-podcasts');
 const getSinglePodcast = require('../controller/podcasts/get-single-podcast');
+const trackEvents = require('../controller/podcasts/track-event');
+const getPodcastEvents = require('../controller/podcasts/get-podcast-events');
 const authentication = require('../middleware/auth');
 
 router.post('/podcast/new-podcast', authentication, createNewPodcast);
 router.post('/podcast/get-series-podcasts', authentication, getSeriesPodcasts);
 router.post('/podcast/get-single-podcast', authentication, getSinglePodcast);
+router.post('/podcast/track-events', authentication, trackEvents);
+router.post('/podcast/get-podcast-events', getPodcastEvents);
 
 
 module.exports = router;
