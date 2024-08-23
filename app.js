@@ -7,10 +7,8 @@ const notFound = require('./middleware/not-found');
 const authRoutes = require('./routes/auth');
 const seriesRoutes = require('./routes/series');
 const podcastRoutes = require('./routes/podcast');
-const { mediasoupServer, createProducer, createConsumer } = require('./mediasoupServer');
 
 const http = require('http');
-const { ExpressPeerServer } = require("peer");
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +25,7 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+
 // Routes
 app.use(authRoutes);
 app.use(seriesRoutes);
@@ -35,29 +34,6 @@ app.use(podcastRoutes);
 // Error handling middleware
 app.use(notFound);
 app.use(errorHandler);
-
-const peerServer = ExpressPeerServer(server, {
-  debug: true,
-  allow_discovery: true,
-});
-
-peerServer.on('connection', (client) => {
-  console.log('Client connected:', client.id);
-});
-
-peerServer.on('disconnect', (client) => {
-  console.log('Client disconnected:', client.id);
-});
-
-peerServer.on('error', (error) => {
-  console.error('PeerJS server error:', error);
-});
-
-// Test route
-app.get('/test', (req, res) => {
-  res.send('Hello World');
-});
-app.use("/myapp", peerServer);
 
 
 const port = process.env.PORT || 8080;

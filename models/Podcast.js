@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require('mongoose-double')(mongoose);
+const SchemaTypes = mongoose.Schema.Types;
 const podcastSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -52,7 +54,10 @@ const podcastSchema = new mongoose.Schema({
     publishDate: {
         type: Date,
         required: [true, "Podcast Date must be provided"]
-
+    },
+    earnings: {
+        type: SchemaTypes.Double,
+        default: 0.0
     }
   
 })
